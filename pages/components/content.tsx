@@ -1,55 +1,69 @@
-import React, { useState } from 'react'
-import { Col, Row } from 'react-bootstrap'
-import style from '../../styles/Home.module.css'
-import data from '../../data.json'
+"use client";
+import React, { useEffect, useState } from "react";
+import { Row, Col } from "antd";
+import style from "../../styles/Home.module.css";
+import data from "../../data.json";
+import { BsChevronCompactDown, BsChevronCompactUp } from "react-icons/bs";
+import ListShoes from "./listShoes";
 
-export default function Content() {
-    const [shoes, setShoes] = useState(data.sneakers)
-    const test = () => {
-        console.log(shoes)
+export default function Content({ searchValue, sidebarValue }: any) {
+  let shoes: Shoes[] = data.sneakers;
+  var val = 35;
+  shoes.forEach((el, index) => {
+    if (index == 0) {
+      el.size = val;
+      val++;
+    } else {
+      if (val == 46) {
+        val = 35;
+        el.size = val;
+      } else {
+        el.size = val;
+        val++;
+      }
     }
-    test();
+  });
+  const [sortPrice, setSortPrice] = useState("desc");
 
-    return (
-        <div>
-            <Row>
-                <Col className={style.pad16}>
-                    <span className={style.textHeader}>New Arrivals</span>
-                </Col>
-            </Row>
+  const sorting = () => {
+    if (sortPrice == "desc") {
+      setSortPrice("asc");
+      shoes.sort((a, b) => a.retail_price_cents - b.retail_price_cents);
+    } else {
+      setSortPrice("desc");
+      shoes.sort((a, b) => b.retail_price_cents - a.retail_price_cents);
+    }
+    sortPrice == "desc" ? setSortPrice("asc") : setSortPrice("desc");
+  };
 
-            <Row>
-                <Col>
-                    <div className={style.grid}>
-                        {shoes.map((val, index) => (
-                            <div className={style.item}>
-                                <div className={style.itemHeader}>
-                                    <span>{val.brand_name}</span>
-                                    {/* <span>{val.name}</span> */}
-                                </div>
-                                <div className={style.itemBody}>
-                                    <div className={style.imgContainer}>
-                                        <img src={val.main_picture_url} alt="shoes" height={200} width={200} />
-                                    </div>
-                                    <div className={style.priceContainer}>
-                                        <div className={style.price}>
-                                            <span>Price</span>
-                                            <span>${val.retail_price_cents}</span>
-                                        </div>
-                                        <div>
-                                            <div>
-                                                <img src={val.main_picture_url} alt="shoes" height={50} width={50} />
-                                                <img src={val.main_picture_url} alt="shoes" height={50} width={50} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        ))}
-                    </div>
-                </Col>
-            </Row>
-        </div>
-    )
+  return (
+    <div>
+      <Row>
+        <Col span={12} className={style.pad16}>
+          <span className={style.textHeader}>New Arrivals</span>
+        </Col>
+        <Col span={12} className={style.sort}>
+          <span
+            className={style.pointer}
+            onClick={() => {
+              sorting();
+            }}
+          >
+            Sort by Price
+            {sortPrice == "desc" ? (
+              <BsChevronCompactDown style={{ marginLeft: 10 }} />
+            ) : (
+              <BsChevronCompactUp style={{ marginLeft: 10 }} />
+            )}
+          </span>
+        </Col>
+      </Row>
+
+      <ListShoes
+        shoes={shoes}
+        searchValue={searchValue}
+        sidebarValue={sidebarValue}
+      />
+    </div>
+  );
 }

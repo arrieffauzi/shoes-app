@@ -7,11 +7,24 @@
   border-bottom: solid 0.5px;
 }
 
-.flexRow {
+.body {
   display: flex;
   flex-direction: row;
   height: 100%;
   justify-content: space-between;
+  height: 90%;
+  width: 100%;
+}
+
+.sidebar {
+  flex: 0.25;
+  border-right: 1px solid #ededed;
+}
+
+.content {
+  overflow-y: auto;
+  flex: 1;
+  padding: 16px;
 }
 
 .textHeader {
@@ -49,7 +62,24 @@
   border-radius: 10px;
 }
 
+.gridSize {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20px, 30px));
+  column-gap: 5px;
+  row-gap: 5px;
+}
+
+.itemSize{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  font-size: 12px;
+}
+
 .itemHeader {
+  display: flex;
+  flex-direction: column;
   padding: 5px 5px 5px 30px;
   border-left: solid 5px;
   border-radius: 4px;
@@ -72,7 +102,60 @@
   align-items: center;
 }
 
-.price{
+.price {
   display: flex;
   flex-direction: column;
+}
+
+.variantContainer {
+  display: flex;
+}
+
+.borderVariant {
+  border: solid 0.7px;
+  border-radius: 10px;
+  margin-left: 5px;
+}
+
+.sort {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.name{
+  font-size: 14px;
+  color: lightgray;
+}
+
+.brand{
+  font-size: 14;
+  font-weight: bold;
+  color: black;
+}
+
+.sidebarContainer{
+  border-bottom: solid .5px;
+  padding: 16px;
+  margin-bottom: 10px;
+}
+
+.categoryHeader{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+
+.btnSize{
+  background-color: lightgray;
+}
+
+.btnSizeSelect{
+  background-color: white;
+  font-weight: bold;
 }

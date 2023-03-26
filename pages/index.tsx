@@ -1,15 +1,19 @@
-import React from 'react'
-import { Col, Row, Form } from 'react-bootstrap'
-import Sidebar from './components/sidebar'
-import Content from './components/content'
-import Header from './components/header'
-import Body from './components/body'
+"use client";
+import React, { useState } from "react";
+import Header from "./components/header";
+import Body from "./components/body";
 
 export default function Home() {
+  const [value, setValue] = useState("");
+
+  const getData = (data: string) => {
+    setValue(data);
+  };
+
   return (
     <div>
-      <Header/>
-      <Body/>
+      <Header getValue={getData} />
+      <Body searchValue={value} />
     </div>
-  )
+  );
 }
